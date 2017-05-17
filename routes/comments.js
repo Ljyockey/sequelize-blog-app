@@ -23,5 +23,22 @@ router.post('/', (req, res) => {
 	.catch(err => res.status(500).send('internal server error'));
 });
 
+//update comment text
+router.put('/:id', (req, res) => {
+	if (req.params.id !== req.body.id.toString()) {
+		const message = 'IDs in req.params and req.body must match';
+		console.error(message);
+		return res.status(400).send(message);
+	}
+	const toUpdate = {commentText: req.body.commentText};
+	return Comment.update(toUpdate, {
+		where: {
+			id: req.params.id
+		}
+	})
+	.then(comment => res.status(204).end())
+	.catch(err => res.status(500).json({message: 'internal server error'}));
+});
+
 
 module.exports = router;

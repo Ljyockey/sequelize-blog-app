@@ -50,4 +50,28 @@ router.post('/', (req, res) => {
 	.catch(err => res.status(500).json({message: 'internal server error'}));
 });
 
+
+//update title and/or content of post
+router.put('/:id', (req, res) => {
+	if (req.params.id !== req.body.id.toString()) {
+		const message = 'IDs in req.params and req.body must match';
+		console.error(message);
+		return res.status(400).send(message);
+	}
+	const toUpdate = {};
+	const possibleFields = ['title', 'content'];
+	possibleFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	})
+	return Post.update(toUpdate, {
+	where: {
+		id: req.params.id
+	}
+})
+.then(post => res.status(204).end())
+.catch(err => res.status(500).json({message: 'internal server error'}));
+});
+
 module.exports = router;
