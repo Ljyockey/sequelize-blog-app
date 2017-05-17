@@ -23,6 +23,14 @@ const Post = sequelize.define('Post', {
 					},
 				}
 				);
+				Post.hasMany(models.Comment, {
+					as: 'comments',
+					foreignKey: {
+						allowNull: false
+					},
+					onDelete: 'CASCADE'
+				}
+				);
 			}
 		},
 		instanceMethods: {
