@@ -53,4 +53,20 @@ router.get('/:id/comments', (req, res) => {
 		}));
 });
 
+//post new author
+router.post('/', (req, res) => {
+	if (!('username' in req.body)) {
+		const message = 'Username is required for new authors';
+		console.error(message);
+		return res.status(400).send(message);
+	}
+	return Author.create({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		username: req.body.username
+	})
+	.then(author => res.status(201).json(author.apiRepr()))
+	.catch(err => res.status(500).send({message: 'internal server error'}));
+});
+
 module.exports = router;
