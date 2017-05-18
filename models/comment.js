@@ -7,9 +7,7 @@ const Comment = sequelize.define('Comment', {
 		commentText: {
 			type: Sequelize.TEXT,
 			field: 'comment_text',
-			validate: {
-				allowNull: false
-			}
+			allowNull: false
 		}
 	},
 	{

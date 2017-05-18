@@ -35,7 +35,7 @@ function buildPost(authorId) {
 
 function buildComment(authorId, postId) {
   const properties = {
-    comment: faker.lorem.words(20)
+    commentText: faker.lorem.words(20)
   };
   if (authorId) {
     properties.author_id = authorId;

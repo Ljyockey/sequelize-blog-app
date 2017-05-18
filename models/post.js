@@ -38,7 +38,8 @@ const Post = sequelize.define('Post', {
 				return {
 					id: this.id,
 					title: this.title,
-					content: this.content
+					content: this.content,
+					author_id: this.author_id
 				};
 			}
 		}
