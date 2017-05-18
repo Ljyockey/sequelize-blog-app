@@ -1,6 +1,8 @@
+const faker = require('faker');
 const {PORT} = require('../config');
 const {runServer, closeServer} = require('../server');
 const {sequelize} = require('../db/sequelize');
+const {Comment, Author, Post} = require('../models');
 
 before(function() {
 	return sequelize.sync({force: true})
@@ -16,7 +18,7 @@ function buildAuthor() {
   return {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    userName: faker.lorem.word(),
+    username: faker.lorem.word(),
   };
 }
 

@@ -5,9 +5,7 @@ const {Author, Comment, Post} = require('../models');
 
 //get author by ID
 router.get('/:id', (req, res) => Author.findById(req.params.id)
-.then(author => res.json({
-	authors: author.apiRepr()
-}))
+.then(author => res.json(author.apiRepr()))
 );
 
 //get author's posts by author ID
