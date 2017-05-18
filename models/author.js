@@ -14,7 +14,10 @@ const Author = sequelize.define('Author', {
 		},
 		username: {
 			type: Sequelize.TEXT,
-			allowNull: false
+			allowNull: false,
+			validate: {
+				notNull: true
+			}
 		}
 	},
 	{

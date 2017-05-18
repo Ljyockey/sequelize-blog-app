@@ -4,16 +4,7 @@ const router = express.Router();
 const {Author, Comment, Post} = require('../models');
 
 //get author by ID
-router.get('/:id', (req, res) => Author.findById(req.params.id, {
-	include: [{
-		model: Post,
-		as: 'posts'
-	},
-	{
-		model: Comment,
-		as: 'comments'
-	}]
-})
+router.get('/:id', (req, res) => Author.findById(req.params.id)
 .then(author => res.json({
 	authors: author.apiRepr()
 }))
@@ -21,14 +12,10 @@ router.get('/:id', (req, res) => Author.findById(req.params.id, {
 
 //get author's posts by author ID
 router.get('/:id/posts', (req, res) => {
-	return Author.findById(req.params.id, {
+	Author.findById(req.params.id, {
 		include: [{
 			model: Post,
 			as: 'posts'
-		},
-		{
-			model: Comment,
-			as: 'comments'
 		}]
 	})
 	.then(author => 
@@ -55,18 +42,13 @@ router.get('/:id/comments', (req, res) => {
 
 //post new author
 router.post('/', (req, res) => {
-	if (!('username' in req.body)) {
-		const message = 'Username is required for new authors';
-		console.error(message);
-		return res.status(400).send(message);
-	}
 	return Author.create({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		username: req.body.username
 	})
 	.then(author => res.status(201).json(author.apiRepr()))
-	.catch(err => res.status(500).send({message: 'internal server error'}));
+	.catch(err => res.status(500).send(err));
 });
 
 
