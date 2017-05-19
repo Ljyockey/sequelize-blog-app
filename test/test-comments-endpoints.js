@@ -27,7 +27,6 @@ describe('Comments API resource', function() {
 				post = _post;
 				newComment.author_id = post.author_id;
 				newComment.post_id = post.id;
-				console.log(newComment);
 				return chai.request(app)
 				.post('/comments').send(newComment)
 			})
