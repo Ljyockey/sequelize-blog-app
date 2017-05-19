@@ -32,7 +32,9 @@ const Comment = sequelize.define('Comment', {
 		instanceMethods: {
 			apiRepr: function() {
 				return {
-					id: this.id,
+					id: this.id,	
+					author_id: this.author_id,
+					post_id: this.post_id,
 					commentText: this.commentText
 				};
 			}
